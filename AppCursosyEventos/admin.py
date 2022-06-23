@@ -7,12 +7,22 @@ class CursoAdmin(admin.ModelAdmin):
         "cursos",
     )
 
-class EventosAdmin(admin.ModelAdmin):
+class ProfresoresAdmin(admin.ModelAdmin):
 
     list_display = (
-        "eventos",
-        "fecha",
+        "nombre",
+        "apellido",
+        )
+
+class AlumnosAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "nombre",
+        "apellido",
+        "edad",
+        "nacimiento",
         )
 
 admin.site.register(Cursos, CursoAdmin)
-admin.site.register(Eventos, EventosAdmin)
+admin.site.register(Profesores, ProfresoresAdmin)
+admin.site.register( Alumnos, AlumnosAdmin)

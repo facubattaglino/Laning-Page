@@ -1,0 +1,28 @@
+{% extends 'CursosyEventosApp/base.html'%}
+{%load static%}
+
+{%block tituloPagina%}
+Alumnos - AppCyE
+{%endblock%}
+
+{%block contenidoPagina%}
+<section class="bg-light py-5">
+    <div class="container px-5">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-3">
+                <h5>Los alumnos son: </h5>
+                <ul class="list-group">
+                    {% for alumn in alumnos %}
+                        <p class="list-group-item d-flex justify-content-between align-items-start">
+                            <li> Nombre = {{alumn.nombre}} </li>
+                            <li> Apellido = {{alumn.apellido}} </li>
+                            <li> Edad = {{alumn.edad}} </li>
+                            <li> Fecha de nacimiento = {{alumn.nacimiento}} </li>
+                            </p>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>  
+</section>
+{%endblock%}

@@ -2,7 +2,7 @@
 {%load static%}
 
 {%block tituloPagina%}
-Eventos - AppCyE
+Profesores - AppCyE
 {%endblock%}
 
 {%block contenidoPagina%}
@@ -10,12 +10,12 @@ Eventos - AppCyE
     <div class="container px-5">
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-3">
-                Los eventos son:
+                <h5>Los profesores son:</h5>
                 <ul class="list-group">
-                    {% for evento in eventos %}
+                    {% for x in profes %}
                         <li class="list-group-item d-flex justify-content-between align-items-start">
-                            {{evento.eventos}}
-                            {{evento.fecha}}
+                            {{x.nombre}}
+                            {{x.apellido}}
                         </li>
                     {% endfor %}
                 </ul>
