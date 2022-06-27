@@ -100,7 +100,7 @@ def buscar_alumno(request):
         alumno = request.POST ["alumno"]
         if alumno !="":
             alumnos = Alumnos.objects.filter( Q(nombre__icontains=alumno) | Q(apellido__icontains=alumno) | Q(nacimiento__icontains=alumno) ).values()
-            return render(request,"CursosyEventosApp/buscar_alumno.html",{"alumnosss":alumnos,"alumno":True,"buscar":alumno})
+            return render(request,"CursosyEventosApp/buscar_alumno.html",{"alumnosss":alumnos,"alumno":True})
         
     return render(request,"CursosyEventosApp/buscar_alumno.html",{})
 
@@ -109,7 +109,7 @@ def buscar_curso(request):
         cursos = request.POST["cursos"]
         if cursos !="":
             curso = Cursos.objects.filter( Q(cursos__icontains=cursos) | Q(comision__icontains=cursos)).values()
-            return render(request,"CursosyEventosApp/buscar_curso.html",{"curs":curso,"cursos":True,"buscar":cursos})
+            return render(request,"CursosyEventosApp/buscar_curso.html",{"curs":curso,"resultado":True})
         
     return render(request,"CursosyEventosApp/buscar_curso.html",{})
 
@@ -119,6 +119,6 @@ def buscar_profesor(request):
         if profesor !="":
             
             profesores = Profesores.objects.filter( Q(nombre__icontains=profesor) | Q(apellido__icontains=profesor)).values()
-            return render(request,"CursosyEventosApp/buscar_profesor.html",{"profe":profesores,"profesor":True,"buscar":profesor})
+            return render(request,"CursosyEventosApp/buscar_profesor.html",{"profe":profesores,"profesor":True})
         
     return render(request,"CursosyEventosApp/buscar_profesor.html",{})
