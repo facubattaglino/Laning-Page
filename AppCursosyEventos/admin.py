@@ -5,7 +5,9 @@ class CursoAdmin(admin.ModelAdmin):
 
     list_display = (
         "cursos",
+        "comision",
     )
+    search_fields = ("cursos","comision")
 
 class ProfresoresAdmin(admin.ModelAdmin):
 
@@ -13,7 +15,7 @@ class ProfresoresAdmin(admin.ModelAdmin):
         "nombre",
         "apellido",
         )
-
+    search_fields = ("nombre","apellido")
 class AlumnosAdmin(admin.ModelAdmin):
 
     list_display = (
@@ -22,6 +24,7 @@ class AlumnosAdmin(admin.ModelAdmin):
         "edad",
         "nacimiento",
         )
+    search_fields = ("nombre","apellido","edad","nacimiento")
 
 admin.site.register(Cursos, CursoAdmin)
 admin.site.register(Profesores, ProfresoresAdmin)

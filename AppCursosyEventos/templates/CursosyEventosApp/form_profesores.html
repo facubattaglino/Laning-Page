@@ -2,11 +2,11 @@
 {%load static %}
 
 {%block tituloPagina%}
-Crear Curso - AppCyE
+Crear Profesor - AppCyE
 {%endblock%}
 
 {%block contenidoPagina%}
-<h2>Crea un curso nuevo:</h2>
+<h2>Crea un nuevo profesor:</h2>
 <form action="" method="post">
     {% csrf_token %}
     
@@ -15,7 +15,6 @@ Crear Curso - AppCyE
     <p>Comision: <input type="number" name="comision" id="" min="0"></p> -->{% endcomment %}
     
     {{ form.as_p }}
-    <input type="submit" value="Crear curso">
+    <input type="submit" value="Crear profesor">
 </form>
 {%endblock%}
-{% comment %} El as_p me tira los valores del formulario uno debajo del otro {% endcomment %}

@@ -1,0 +1,28 @@
+{% extends 'CursosyEventosApp/base.html'%}
+{%load static %}
+
+{%block tituloPagina%}
+Buscar Profesor - AppCyE
+{%endblock%}
+
+{%block contenidoPagina%}
+<p>Buscar profesor:
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <input type="text" name="profesor" id="" min="">
+        <input type="submit" value="Buscar">
+
+    </form>
+</p>
+<p>Resultados: </p>
+    <ul>
+        {% if profe %}
+            {% for x in profe %}
+            <li> {{x.nombre}} {{x.apellido}} </li>
+            {% endfor %}
+        {% else %}
+            <p>No ingresaste ningun nombre en el buscador</p>
+        {%endif %}
+    </ul>
+{%endblock%}

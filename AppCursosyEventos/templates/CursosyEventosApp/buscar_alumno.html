@@ -1,0 +1,29 @@
+{% extends 'CursosyEventosApp/base.html'%}
+{%load static %}
+
+{%block tituloPagina%}
+Buscar Alumno - AppCyE
+{%endblock%}
+
+{%block contenidoPagina%}
+<p>Buscar alumno:
+    <form action="" method="post">
+        {% csrf_token %}
+        {% comment %} <p>Curso: <input type="text" name="curso" id="" maxlength="30"></p>{% endcomment %}
+
+        <input type="text" name="alumno" id="" min="0">
+        <input type="submit" value="Buscar">
+
+    </form>
+</p>
+<p>Resultados: </p>
+    <ul>
+        {% if alumnosss %}
+            {% for x in alumnosss %}
+            <li> {{x.nombre}} {{x.apellido}} </li>
+            {% endfor %}
+        {% else %}
+        <p>No buscaste ningun alumno</p>
+        {% endif %}
+    </ul>
+{%endblock%}

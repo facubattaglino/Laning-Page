@@ -1,0 +1,28 @@
+{% extends 'CursosyEventosApp/base.html'%}
+{%load static %}
+
+{%block tituloPagina%}
+Buscar Curso - AppCyE
+{%endblock%}
+
+{%block contenidoPagina%}
+<p>Buscar curso:
+    <form action="" method="post">
+
+        {% csrf_token %}
+        <input type="text" name="cursos" id="" min="">
+        <input type="submit" value="Buscar">
+
+    </form>
+</p>
+<p>Resultados: </p>
+    <ul>
+        {%if curs %}
+            {% for x in curs %}
+            <li> {{x.cursos}} {{x.comision}} </li>
+            {% endfor %}
+        {% else %}
+        <p>No ingresaste curso</p>
+        {% endif %}
+    </ul>
+{%endblock%}

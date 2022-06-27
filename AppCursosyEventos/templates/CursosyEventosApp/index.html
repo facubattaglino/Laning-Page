@@ -17,7 +17,7 @@ Inicio - App Coder
                     {% for curso in cursos %}
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             {{curso.cursos}}
-                            {{curso.comision}}
+                            <span class="badge bg-success rounded-pill">{{curso.comision}}</span>
                         </li>
                     {% endfor %}
                     <h5>Los ultimos profesores cargados fueron: </h5>
@@ -28,6 +28,11 @@ Inicio - App Coder
                     </li>
                 {% endfor %}
                 </ul>
+                    <ul>
+                        <li><a href="{% url 'buscar_curso' %}"> Buscar Curso</a></li>
+                        <li><a href="{% url 'buscar_profesor' %}"> Buscar Profesor</a></li>
+                        <li><a href="{% url 'buscar_alumno' %}"> Buscar Alumno</a></li>
+                    </ul>
             </div>
         </div>
     </div>  
