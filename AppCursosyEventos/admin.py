@@ -22,7 +22,7 @@ class AlumnosAdmin(admin.ModelAdmin):
         "nombre",
         "apellido",
         "edad",
-        "nacimiento",
+        "fecha_nacimiento",
         )
     search_fields = ("nombre","apellido","edad","nacimiento")
 

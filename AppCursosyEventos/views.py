@@ -12,17 +12,80 @@ def inicio(request):
     ctx = {'cursos': cursos, 'profes':eventos,}
     return render(request,"CursosyEventosApp/index.html", ctx)
 
+def alumno(request):
+    if request.method == "POST":
+        alumno = request.POST ["alumnoo"] #alumnoo Viene del name=alumnoo en el template
+        if alumno !="":
+            alumnos = Alumnos.objects.filter( Q(nombre__icontains=alumno) | Q(apellido__icontains=alumno) | Q(fecha_nacimiento__icontains=alumno) ).values()
+            return render(request,"CursosyEventosApp/alumnos.html",{"alumnos":alumnos,"alumnoo":True,"busqueda":alumno})
+    alumno = Alumnos.objects.all()
+    return render(request,"CursosyEventosApp/alumnos.html",{"alumnos":alumno})
+
+def crear_alumno(request):
+    #POST 
+    if request.method == "POST":
+        
+        formulario = NuevoAlumno(request.POST)
+        
+        if formulario.is_valid():
+            
+            info_alumno = formulario.cleaned_data
+            
+            alumno= Alumnos(nombre = info_alumno["nombre"],
+                            apellido = info_alumno["apellido"],
+                            edad = int(info_alumno["edad"]),
+                            fecha_nacimiento = info_alumno["fecha_nacimiento"]) #[nombre] es igual a nombre el forms
+            alumno.save()
+            
+            return redirect("alumnos") #render(request,"CursosyEventosApp/form_curso.html")
+        
+        else:
+            redirect("crear_alumnos")
+    else:
+        formulario_vacio = NuevoAlumno()
+    #GET
+        return render(request,"CursosyEventosApp/form_alumnos.html",{'form':formulario_vacio})
+
+def buscar_alumno(request):
+    if request.method == "POST":
+        alumno = request.POST ["alumno"]
+        if alumno !="":
+            alumnos = Alumnos.objects.filter( Q(nombre__icontains=alumno) | Q(apellido__icontains=alumno) | Q(nacimiento__icontains=alumno) ).values()
+            return render(request,"CursosyEventosApp/buscar_alumno.html",{"alumnosss":alumnos,"alumno":True})
+        
+    return render(request,"CursosyEventosApp/buscar_alumno.html",{})
+
+def eliminar_alumno(request, alumno_id): # siempre eliminar por ID nunca por NOMBRES
+    alumno = Alumnos.objects.get(id=alumno_id)
+    alumno.delete()
+    
+    return redirect('alumnos')
+
+def editar_alumno(request, alumno_id):
+    
+    alumno = Alumnos.objects.get(id=alumno_id)
+    
+    if request.method == "POST":
+        
+        formulario = NuevoAlumno(request.POST)
+        if formulario.is_valid():
+            info_alumno = formulario.cleaned_data
+            alumno.nombre = info_alumno["nombre"]
+            alumno.apellido = info_alumno["apellido"]
+            alumno.edad = info_alumno["edad"]
+            alumno.fecha_nacimiento = info_alumno["fecha_nacimiento"]
+            alumno.save()
+            return redirect('alumnos')
+    #get
+    formulario_vacio = NuevoAlumno(initial={"nombre":alumno.nombre,
+                                "apellido":alumno.apellido,
+                                "edad":alumno.edad,
+                                "fecha_nacimiento":alumno.fecha_nacimiento})
+    return render(request,"CursosyEventosApp/form_alumnos.html",{'form':formulario_vacio})
+
 def cursos(request):
     cursos = Cursos.objects.all()
     return render(request,"CursosyEventosApp/cursos.html",{"cursos":cursos})
-
-def profesores(request):
-    profesores = Profesores.objects.all()
-    return render(request,"CursosyEventosApp/profesores.html",{"profes":profesores})
-
-def alumno(request):
-    alumno = Alumnos.objects.all()
-    return render(request,"CursosyEventosApp/alumnos.html",{"alumnos":alumno})
 
 def crear_curso(request):
     #POST 
@@ -47,6 +110,19 @@ def crear_curso(request):
     #GET
         return render(request,"CursosyEventosApp/form_curso.html",{'form':formulario_vacio})
 
+def buscar_curso(request):
+    if request.method == "POST":
+        cursos = request.POST["cursos"]
+        if cursos !="":
+            curso = Cursos.objects.filter( Q(cursos__icontains=cursos) | Q(comision__icontains=cursos)).values()
+            return render(request,"CursosyEventosApp/buscar_curso.html",{"curs":curso,"resultado":True})
+        
+    return render(request,"CursosyEventosApp/buscar_curso.html",{})
+
+def profesores(request):
+    profesores = Profesores.objects.all()
+    return render(request,"CursosyEventosApp/profesores.html",{"profes":profesores})
+
 def crear_profesor(request):
     #POST 
     if request.method == "POST":
@@ -68,50 +144,7 @@ def crear_profesor(request):
     else:
         formulario_vacio = NuevoPorfesor()
     #GET
-        return render(request,"CursosyEventosApp/form_profesores.html",{'form':formulario_vacio})    
-
-def crear_alumno(request):
-    #POST 
-    if request.method == "POST":
-        
-        formulario = NuevoAlumno(request.POST)
-        
-        if formulario.is_valid():
-            
-            info_alumno = formulario.cleaned_data
-            
-            alumno= Alumnos(nombre = info_alumno["nombre"],
-                            apellido = info_alumno["apellido"],
-                            edad = int(info_alumno["edad"]),
-                            nacimiento = info_alumno["fecha_nacimiento"]) #[nombre] es igual a nombre el forms
-            alumno.save()
-            
-            return redirect("alumnos") #render(request,"CursosyEventosApp/form_curso.html")
-        
-        else:
-            redirect("crear_alumnos")
-    else:
-        formulario_vacio = NuevoAlumno()
-    #GET
-        return render(request,"CursosyEventosApp/form_alumnos.html",{'form':formulario_vacio})
-
-def buscar_alumno(request):
-    if request.method == "POST":
-        alumno = request.POST ["alumno"]
-        if alumno !="":
-            alumnos = Alumnos.objects.filter( Q(nombre__icontains=alumno) | Q(apellido__icontains=alumno) | Q(nacimiento__icontains=alumno) ).values()
-            return render(request,"CursosyEventosApp/buscar_alumno.html",{"alumnosss":alumnos,"alumno":True})
-        
-    return render(request,"CursosyEventosApp/buscar_alumno.html",{})
-
-def buscar_curso(request):
-    if request.method == "POST":
-        cursos = request.POST["cursos"]
-        if cursos !="":
-            curso = Cursos.objects.filter( Q(cursos__icontains=cursos) | Q(comision__icontains=cursos)).values()
-            return render(request,"CursosyEventosApp/buscar_curso.html",{"curs":curso,"resultado":True})
-        
-    return render(request,"CursosyEventosApp/buscar_curso.html",{})
+        return render(request,"CursosyEventosApp/form_profesores.html",{'form':formulario_vacio})
 
 def buscar_profesor(request):
     if request.method == "POST":

@@ -32,21 +32,24 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     #apps por django
-    'admin_interface',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #apps de terceros
-    'colorfield',
     #apps mias 
     'AppCursosyEventos',
 ]
 
-X_FRAME_OPTIONS = "SAMEORIGIN"
+# Jazzmin Settings
+JAZZMIN_SETTINGS = {
+    #"site_logo": "books/img/logo.png",
+    "site_logo_classes": "img-circle",
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,7 +66,7 @@ ROOT_URLCONF = 'CursosyEventos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [r'C:\Users\Faxpower\OneDrive\Escritorio\project-simulation\CursosyEventos\AppCursosyEventos\templates\CursosyEventosApp'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -14,11 +14,11 @@ class Profesores(models.Model):
     apellido = models.CharField(max_length= 30)
     class Meta:
         verbose_name_plural = "Profesores"
-    
+
 class Alumnos(models.Model):
     nombre = models.CharField(max_length= 30)
     apellido = models.CharField(max_length= 30)
     edad = models.PositiveIntegerField()
-    nacimiento = models.DateField()
+    fecha_nacimiento = models.DateField()
     class Meta:
         verbose_name_plural = "Alumnos"
