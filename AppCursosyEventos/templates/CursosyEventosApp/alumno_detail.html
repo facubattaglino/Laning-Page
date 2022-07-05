@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles Alumnos</title>
+</head>
+<body>
+    <h2>Detalle alumno:</h2>
+    <p>Nombre: {{alumnos.nombre}}</p>
+    <p>Apellido: {{alumnos.apellido}}</p>
+    <p>Edad: {{alumnos.edad}}</p>
+    <p>Fecha_nacimiento: {{alumnos.fecha_nacimiento}}</p>
+    <a href="{% url 'alumnos_list' %}">Regresar a lista alumnos</a> {% comment %}url, va el name= que esta en urls.py{% endcomment %}
+</body>
+</html>

@@ -17,4 +17,11 @@ urlpatterns = [
     path('buscar_alumno/', buscar_alumno, name= "buscar_alumno"),
     path('eliminar_alumno/<alumno_id>', eliminar_alumno, name= "eliminar_alumno"),
     path('editar_alumno/<alumno_id>', editar_alumno, name= "editar_alumno"),
+    
+    path('alumno/list', AlumnosList.as_view() , name= "alumnos_list" ),
+    path(r'^(?P<pk>\d+)$', AlumnosDetail.as_view(), name= "alumnos_detail" ),
+    path(r'^nuevo$', AlumnoCreate.as_view() , name= "alumnos_create" ),
+    path(r'^editar/(?P<pk>\d+)$', AlumnoUpdate.as_view() , name= "alumnos_update" ),
+    path(r'^eliminar/(?P<pk>\d+)$', AlumnoDelete.as_view() , name= "alumnos_delete" ),
 ]
+#    #<pk> es el parametro que voy a recibir (tipo "id")

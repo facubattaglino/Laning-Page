@@ -1,8 +1,11 @@
-from inspect import formatargvalues
 from django.shortcuts import redirect, render
 from .models import *
 from .forms import *
 from django.db.models import Q
+
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView,UpdateView,DeleteView
 
 
 # Create your views here.
@@ -82,6 +85,30 @@ def editar_alumno(request, alumno_id):
                                 "edad":alumno.edad,
                                 "fecha_nacimiento":alumno.fecha_nacimiento})
     return render(request,"CursosyEventosApp/form_alumnos.html",{'form':formulario_vacio})
+
+
+class AlumnosList(ListView):
+    model = Alumnos #De aca saca los datos que luego mostramos
+    template_name = "CursosyEventosApp/alumnos_list.html"
+
+class AlumnosDetail(DetailView):
+    model = Alumnos
+    template_name = "CursosyEventosApp/alumno_detail.html"
+
+class AlumnoCreate(CreateView):
+    model = Alumnos
+    success_url = "/appcye/alumnos/list"
+    fields = ["nombre", "apellido", "edad", "fecha_nacimiento"] #Le paso los campos para CREAR
+
+class AlumnoUpdate(UpdateView):
+    model = Alumnos
+    success_url = "/appcye/alumnos/list"
+    fields = ["nombre", "apellido", "edad", "fecha_nacimiento"] #Le paso los campos para EDITAR
+
+class AlumnoDelete(DeleteView):
+    model = Alumnos
+    success_url = "/appcye/alumnos/list" #appcye ES LA URLS del proyecto
+
 
 def cursos(request):
     cursos = Cursos.objects.all()
