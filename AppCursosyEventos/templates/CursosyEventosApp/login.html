@@ -1,0 +1,20 @@
+{% extends 'CursosyEventosApp/base.html' %}
+{% load static %}
+
+{% block tituloPagina %} {% comment %}<!--El bloque de tituloPagina me lo rellena con este contenido-->{% endcomment%}
+Login - App Coder
+{% endblock %}
+
+{% block contenidoPagina %}
+
+<section class="bg-light py-5">
+    <div class="container px-5">
+        <h1>Inicia Sesión</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">iniciar sesion</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -10,11 +10,13 @@
     <h2>Lista de Alumnos:</h2>
     <ul>
         {%for alumno in object_list%}
-            <li>Alumno: {{alumno.nombre}} {{alumno.apellido}}</li>|
+            <li>Alumno: {{alumno.nombre}} {{alumno.apellido}} | 
             <a href="{% url 'alumnos_detail' alumno.id %}">Ver</a>
             <a href="{% url 'alumnos_delete' alumno.id %}">eliminar</a>
             <a href="{% url 'alumnos_update' alumno.id %}">editar</a>
+            </li>
         {%endfor%}
     </ul>
+    <a href="{% url 'alumnos_create' %}">Crear Alumno</a>
 </body>
 </html>

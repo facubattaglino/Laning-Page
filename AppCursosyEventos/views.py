@@ -7,13 +7,43 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
 
+from django.contrib.auth.forms import AuthenticationForm #formulario de autenticacion(va a pedir nombre de usuario y contraseña para iniciar sesion)
+from django.contrib.auth import login, logout ,authenticate #importo estos metodos
+
 
 # Create your views here.
+def entrada(request):
+    return redirect("inicio")
+
 def inicio(request):
     cursos = Cursos.objects.all().order_by('-id')[:3]
     eventos = Profesores.objects.all().order_by('-id')[:3]
     ctx = {'cursos': cursos, 'profes':eventos,}
     return render(request,"CursosyEventosApp/index.html", ctx)
+
+def login_request(request):
+
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password1 = form.cleaned_data.get('password')
+            user = authenticate(user=username,password=password1)
+
+            if user is not None: #si el formulario es valido, me logueo y voy a pagina inicio
+                login(request,user)
+                return redirect("inicio")
+            else: #si el formulario NO es valido, me redirecciona a pagina login
+                return redirect("login")
+        else:
+            return redirect("login")
+    
+    form = AuthenticationForm()
+    
+    return render(request,"CursosyEventosApp/login.html",{"form":form})
+
+
 
 def alumno(request):
     if request.method == "POST":
@@ -87,27 +117,27 @@ def editar_alumno(request, alumno_id):
     return render(request,"CursosyEventosApp/form_alumnos.html",{'form':formulario_vacio})
 
 
-class AlumnosList(ListView):
-    model = Alumnos #De aca saca los datos que luego mostramos
-    template_name = "CursosyEventosApp/alumnos_list.html"
+# class AlumnosList(ListView):
+#     model = Alumnos #De aca saca los datos que luego mostramos
+#     template_name = "CursosyEventosApp/alumno_list.html"
 
-class AlumnosDetail(DetailView):
-    model = Alumnos
-    template_name = "CursosyEventosApp/alumno_detail.html"
+# class AlumnosDetail(DetailView):
+#     model = Alumnos
+#     template_name = "CursosyEventosApp/alumno_detail.html"
 
-class AlumnoCreate(CreateView):
-    model = Alumnos
-    success_url = "/appcye/alumnos/list"
-    fields = ["nombre", "apellido", "edad", "fecha_nacimiento"] #Le paso los campos para CREAR
+# class AlumnoCreate(CreateView):
+#     model = Alumnos
+#     success_url = "/appcye/alumnos/list"
+#     fields = ["nombre", "apellido", "edad", "fecha_nacimiento"] #Le paso los campos para CREAR
 
-class AlumnoUpdate(UpdateView):
-    model = Alumnos
-    success_url = "/appcye/alumnos/list"
-    fields = ["nombre", "apellido", "edad", "fecha_nacimiento"] #Le paso los campos para EDITAR
+# class AlumnoUpdate(UpdateView):
+#     model = Alumnos
+#     success_url = "/appcye/alumnos/list"
+#     fields = ["nombre", "apellido", "edad", "fecha_nacimiento"] #Le paso los campos para EDITAR
 
-class AlumnoDelete(DeleteView):
-    model = Alumnos
-    success_url = "/appcye/alumnos/list" #appcye ES LA URLS del proyecto
+# class AlumnoDelete(DeleteView):
+#     model = Alumnos
+#     success_url = "/appcye/alumnos/list" #appcye ES LA URLS del proyecto
 
 
 def cursos(request):
