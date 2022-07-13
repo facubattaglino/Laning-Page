@@ -4,7 +4,11 @@ from .forms import *
 
 urlpatterns = [
     path('', inicio, name= "inicio"),
+    
     path('login', login_request , name="login"), #no usar login como nombre de la vista
+    path('register', register_request , name="register"),
+    path('logout', logout_request , name="logout"),
+    path('editar_perfil', editar_perfil , name="editar_perfil"),
     
     path('cursos/', cursos, name= "cursos"),
     path('crear_curso/', crear_curso, name = "crear_curso"),

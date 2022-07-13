@@ -111,6 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_URL = '/appcye/login' #El appcye/ viene de la URL
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -133,6 +134,10 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'Statics'),
     
 )
+
+#ruta a media
+MEDIA_URL = '/media/' #esta url es como se identifica dentro del codigo para entrar a las imagenes a traves del navegador
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') #esto seria en que carpeta esta toda la media
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

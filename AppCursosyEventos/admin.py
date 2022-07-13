@@ -29,3 +29,6 @@ class AlumnosAdmin(admin.ModelAdmin):
 admin.site.register(Cursos, CursoAdmin)
 admin.site.register(Profesores, ProfresoresAdmin)
 admin.site.register( Alumnos, AlumnosAdmin)
+
+#dentro del panel de administracion puedo modificar el avatar
+admin.site.register(Avatar)
